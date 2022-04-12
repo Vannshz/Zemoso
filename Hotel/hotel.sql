@@ -22,9 +22,6 @@ PRIMARY KEY (`CustID`)
 
 
 
-
--- ************************************** `Hotel`
-
 CREATE TABLE `Hotel`
 (
  `HotelID`      int NOT NULL ,
@@ -41,105 +38,35 @@ PRIMARY KEY (`HotelID`)
 
 
 
-
--- ************************************** `Reserved`
-
-CREATE TABLE `Reserved`
-(
- `Reserved_ID`      int NOT NULL ,
- `CustID`           numeric NOT NULL ,
- `Arrival`          timestamp NOT NULL ,
- `Departure`        timestamp NOT NULL ,
- `Discount_Percent` decimal(5,2) NOT NULL ,
- `Final_Price`      numeric NOT NULL ,
-
-PRIMARY KEY (`Reserved_ID`),
-KEY `FK_206` (`CustID`),
-CONSTRAINT `FK_204` FOREIGN KEY `FK_206` (`CustID`) REFERENCES `Customer` (`CustID`)
-);
-
-
-
-
-
-
-
--- ************************************** `RoomType`
-
-CREATE TABLE `RoomType`
-(
- `Room_Type_ID` int NOT NULL ,
- `Room_Type`    varchar(128) NOT NULL ,
-
-PRIMARY KEY (`Room_Type_ID`)
-);
-
-
-
-
-
-
-
-
-
-
-
--- ************************************** `Room`
-
 CREATE TABLE `Room`
 (
- `RoomID`       int NOT NULL ,
- `Floor_No`     int NOT NULL ,
- `Room_Type_ID` int NOT NULL ,
- `HotelID`      int NOT NULL ,
- `Price`        decimal(10,2) NOT NULL ,
+ `RoomID`   int NOT NULL ,
+ `Floor_No` int NOT NULL ,
+ `HotelID`  int NOT NULL ,
+ `Price`    decimal(10,2) NOT NULL ,
 
 PRIMARY KEY (`RoomID`),
-KEY `FK_305` (`HotelID`),
-CONSTRAINT `FK_303` FOREIGN KEY `FK_305` (`HotelID`) REFERENCES `Hotel` (`HotelID`),
-KEY `FK_311` (`Room_Type_ID`),
-CONSTRAINT `FK_309` FOREIGN KEY `FK_311` (`Room_Type_ID`) REFERENCES `RoomType` (`Room_Type_ID`)
+KEY `FK_63` (`HotelID`),
+CONSTRAINT `FK_61` FOREIGN KEY `FK_63` (`HotelID`) REFERENCES `Hotel` (`HotelID`)
 );
 
 
 
 
-
-
-
-
-
--- ************************************** `Room_Reserved`
-
-CREATE TABLE `Room_Reserved`
+CREATE TABLE `Booking`
 (
- `ID`          numeric NOT NULL ,
- `RoomID`      int NOT NULL ,
- `Reserved_ID` int NOT NULL ,
- `Price`       decimal(10,2) NOT NULL ,
+ `HotelID`      int NOT NULL ,
+ `CheckInDate`  date NOT NULL ,
+ `CustID`       numeric NOT NULL ,
+ `CheckOutDate` date NOT NULL ,
+ `BookingID`    int NOT NULL ,
 
-PRIMARY KEY (`ID`),
-KEY `FK_320` (`Reserved_ID`),
-CONSTRAINT `FK_318` FOREIGN KEY `FK_320` (`Reserved_ID`) REFERENCES `Reserved` (`Reserved_ID`),
-KEY `FK_532` (`RoomID`),
-CONSTRAINT `FK_530` FOREIGN KEY `FK_532` (`RoomID`) REFERENCES `Room` (`RoomID`)
+PRIMARY KEY (`HotelID`),
+KEY `FK_56` (`HotelID`),
+CONSTRAINT `FK_54` FOREIGN KEY `FK_56` (`HotelID`) REFERENCES `Hotel` (`HotelID`),
+KEY `FK_81` (`CustID`),
+CONSTRAINT `FK_79` FOREIGN KEY `FK_81` (`CustID`) REFERENCES `Customer` (`CustID`)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
